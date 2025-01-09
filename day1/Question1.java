@@ -1,8 +1,6 @@
-import java.sql.Timestamp;
-import java.util.Arrays;
+package day1;
+
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Question1 {
     public static int solution(int[] arr, int k) {

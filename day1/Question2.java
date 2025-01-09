@@ -1,6 +1,4 @@
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Set;
+package day1;
 
 public class Question2 {
     public static int solution(int[] arr) {

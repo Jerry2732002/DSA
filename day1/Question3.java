@@ -1,3 +1,5 @@
+package day1;
+
 public class Question3 {
 //    public static int solution(int[] prices) {
 //        int i = 0;

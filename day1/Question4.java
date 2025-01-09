@@ -1,3 +1,5 @@
+package day1;
+
 public class Question4 {
     public static int solution(int[] prices) {
         int profit = 0;
