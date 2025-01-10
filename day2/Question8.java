@@ -1,40 +1,37 @@
 package day2;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Question8 {
     public static int fruitPick(String[] arr) {
         int result = 0;
+        int i = 0;
+        int j = 0;
         Map<String, Integer> fruit = new HashMap<>();
-        for (String str : arr) {
-            if (fruit.containsKey(str)) {
-                fruit.put(str, fruit.get(str) + 1);
+
+        while (i < arr.length && j < arr.length) {
+            if (fruit.containsKey(arr[j])) {
+                fruit.put(arr[j], fruit.get(arr[j]) + 1);
             } else {
-                fruit.put(str, 1);
+                fruit.put(arr[j], 1);
             }
+            if (fruit.size() > 2) {
+                result = Math.max(result, (fruit.get(arr[i]) + fruit.get(arr[j - 1])));
+                fruit.remove(arr[i]);
+                i = j - 1;
+            }
+            j++;
         }
-        Map.Entry<String, Integer> entry = fruit.entrySet().stream()
-                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-                .findFirst()
-                .get();
-
-        result += entry.getValue();
-
-        entry = fruit.entrySet().stream()
-                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-                .skip(1)
-                .findFirst()
-                .get();
-        result += entry.getValue();
-
-
-        return result;
+        if (result == 0) {
+            return j;
+        }
+        else {
+            return result;
+        }
     }
 
     public static void main(String[] args) {
-        System.out.println(fruitPick(new String[]{"A","B","A","B","A","B"}));
+        System.out.println(fruitPick(new String[]{"3","3","3","1","2","1","1","2","3","4"}));
     }
 }
