@@ -1,64 +1,43 @@
 package day2;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class Question7 {
-    public static String palindromes(String s, int val) {
-        int i;
-        int j;
+    public static String largest(String s, int val) {
+        int i = 0;
+        int j = 0;
         int largest = -1;
-        String largestPalindrome = "";
-
-        for (int k = 0; k < s.length(); k++) {
-            Set<Character> characters = new HashSet<>();
-            i = k;
-            j = k;
-            while (i >= 0 && j < s.length() && s.charAt(i) == s.charAt(j)) {
-                characters.add(s.charAt(i));
-
-                if (characters.size() == 2) {
-                    return s.substring(i, j + 1);
-                }
-
-                String str = s.substring(i, j + 1);
-
-                if (str.length() > largest) {
-                    largest = str.length();
-                    largestPalindrome = str;
-                }
-
-                i--;
+        String result = "";
+        Set<Character> chars = new HashSet<>();
+        while (i < s.length() && j < s.length()) {
+            if (!chars.contains(s.charAt(j))) {
+                chars.add(s.charAt(j));
                 j++;
+            } else {
+                if (largest < (j - i)) {
+                    largest = j - i;
+                    result = s.substring(i,j);
+                    if (largest == val) {
+                        return result;
+                    }
+                }
+                while (chars.contains(s.charAt(j))) {
+                    chars.remove(s.charAt(i));
+                    i++;
+                }
             }
         }
-
-        for (int k = 0; k < s.length(); k++) {
-            Set<Character> characters = new HashSet<>();
-            i = k;
-            j = k + 1;
-            while (i >= 0 && j < s.length() && s.charAt(i) == s.charAt(j)) {
-                characters.add(s.charAt(i));
-
-                if (characters.size() == 2) {
-                    return s.substring(i, j + 1);
-                }
-
-                String str = s.substring(i, j + 1);
-
-                if (str.length() > largest) {
-                    largest = str.length();
-                    largestPalindrome = str;
-                }
-
-                i--;
-                j++;
-            }
+        if (largest < (j - i)) {
+            largest = j - i;
+            result = s.substring(i,j);
         }
-        return largestPalindrome;
+        return result;
     }
 
     public static void main(String[] args) {
-        System.out.println(palindromes("xaaaaax", 2));
+        System.out.println(largest("abcdadeghjk", 3));
     }
 }
